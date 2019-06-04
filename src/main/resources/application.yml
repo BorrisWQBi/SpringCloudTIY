@@ -1,0 +1,138 @@
+---
+server:
+  port : 7001
+
+spring:
+  #配置的启动参数名
+  #springboot的配置文件可以多个实例写在用一个Yml中，以上面的【---】作为分隔符
+  #并且在启动参数（program arguments）中加入--spring.profiles.active=profileName作为识别
+  profiles: center1
+  application:
+    name: eureka-center
+  #安全验证设置
+  security:
+    basic:
+      #打开安全开关
+      enabled: true
+    #用户名密码
+    user:
+      name: borris
+      password: sctiy
+
+eureka:
+  instance:
+    namespace: lakala_reg_center
+    hostname : localhost:7001
+  client:
+    #服务端不自己给自己注册
+    #register-with-eureka : false
+    # 获取注册信息（高可用配置、默认配置）
+    #fetch-registry : false
+    #注册地址，client端需要跟此处相同
+    service-url:
+      #无安全验证的配置
+      #defaultZone : http://localhost:7002/eureka/,http://localhost:7003/eureka/
+      #单体安全验证的配置
+      defaultZone: http://${spring.security.user.name}:${spring.security.user.password}@localhost:7001/eureka/,http://${spring.security.user.name}:${spring.security.user.password}@localhost:7002/eureka/,http://${spring.security.user.name}:${spring.security.user.password}@localhost:7003/eureka/
+      #defaultZone : http://${security.user.name}:${security.user.password}@center2:7002/eureka/,http://${security.user.name}:${security.user.password}@center3:7003/eureka/
+  server:
+    #关闭自我保护机制
+    enable-self-preservation : false
+    #设置健康节点检测间隔（ms)
+    eviction-interval-timer-in-ms : 10000
+
+logging:
+  level:
+    com:
+      netflix:
+        eureka : OFF
+        discovery : OFF
+
+---
+server:
+  port : 7002
+
+spring:
+  profiles: center2
+  application:
+    name: eureka-center
+  security:
+    basic:
+      enabled: true
+    user:
+      name: borris
+      password: sctiy
+
+eureka:
+  instance:
+    namespace: lakala_reg_center
+    hostname : localhost:7001
+  client:
+    #服务端不自己给自己注册
+    #register-with-eureka : false
+    # 获取注册信息（高可用配置、默认配置）
+    #fetch-registry : false
+    #注册地址，client端需要跟此处相同
+    eureka-server-u-r-l-context: lakala_reg_center
+    service-url:
+      #无安全验证的配置
+      defaultZone: http://${spring.security.user.name}:${spring.security.user.password}@localhost:7001/eureka/,http://${spring.security.user.name}:${spring.security.user.password}@localhost:7002/eureka/,http://${spring.security.user.name}:${spring.security.user.password}@localhost:7003/eureka/
+      #安全验证的配置
+      #defaultZone: http://${security.user.name}:${security.user.password}@center1:7001/eureka/,http://${security.user.name}:${security.user.password}@center3:7003/eureka/
+  server:
+    #关闭自我保护机制
+    enable-self-preservation : false
+    #设置健康节点检测间隔（ms)
+    eviction-interval-timer-in-ms : 10000
+
+logging:
+  level:
+    com:
+      netflix:
+        eureka : OFF
+        discovery : OFF
+
+---
+server:
+  port : 7003
+
+spring:
+  profiles: center3
+  application:
+    name: eureka-center
+  security:
+    basic:
+      enabled: true
+    user:
+      name: borris
+      password: sctiy
+
+eureka:
+  instance:
+    namespace: lakala_reg_center
+    hostname: localhost:7003
+  client:
+    #服务端不自己给自己注册
+    #register-with-eureka : false
+    # 获取注册信息（高可用配置、默认配置）
+    #fetch-registry : false
+    #注册地址，client端需要跟此处相同
+    eureka-server-u-r-l-context: lakala_reg_center
+    service-url:
+      #无安全验证的配置
+      #defaultZone : http://center1:7001/eureka/,http://center2:7002/eureka/
+      #安全验证的配置
+      defaultZone: http://${spring.security.user.name}:${spring.security.user.password}@localhost:7001/eureka/,http://${spring.security.user.name}:${spring.security.user.password}@localhost:7002/eureka/,http://${spring.security.user.name}:${spring.security.user.password}@localhost:7003/eureka/
+
+  server:
+    #关闭自我保护机制
+    enable-self-preservation : false
+    #设置健康节点检测间隔（ms)
+    eviction-interval-timer-in-ms : 10000
+
+logging:
+  level:
+    com:
+      netflix:
+        eureka : OFF
+        discovery : OFF
