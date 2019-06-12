@@ -9,9 +9,7 @@ import org.springframework.context.annotation.ComponentScan;
 @EnableEurekaServer
 @ComponentScan("com.borris")
 public class SpringCloudTiyApplication {
-
 	public static void main(String[] args) {
 		SpringApplication.run(SpringCloudTiyApplication.class, args);
 	}
-
 }

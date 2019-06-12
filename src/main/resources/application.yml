@@ -37,7 +37,7 @@ eureka:
       #defaultZone : http://${security.user.name}:${security.user.password}@center2:7002/eureka/,http://${security.user.name}:${security.user.password}@center3:7003/eureka/
   server:
     #关闭自我保护机制
-    enable-self-preservation : false
+    #enable-self-preservation : false
     #设置健康节点检测间隔（ms)
     eviction-interval-timer-in-ms : 10000
 
@@ -66,7 +66,7 @@ spring:
 eureka:
   instance:
     namespace: lakala_reg_center
-    hostname : localhost:7001
+    hostname : localhost:7002
   client:
     #服务端不自己给自己注册
     #register-with-eureka : false
@@ -81,7 +81,7 @@ eureka:
       #defaultZone: http://${security.user.name}:${security.user.password}@center1:7001/eureka/,http://${security.user.name}:${security.user.password}@center3:7003/eureka/
   server:
     #关闭自我保护机制
-    enable-self-preservation : false
+    #enable-self-preservation : false
     #设置健康节点检测间隔（ms)
     eviction-interval-timer-in-ms : 10000
 
@@ -123,10 +123,9 @@ eureka:
       #defaultZone : http://center1:7001/eureka/,http://center2:7002/eureka/
       #安全验证的配置
       defaultZone: http://${spring.security.user.name}:${spring.security.user.password}@localhost:7001/eureka/,http://${spring.security.user.name}:${spring.security.user.password}@localhost:7002/eureka/,http://${spring.security.user.name}:${spring.security.user.password}@localhost:7003/eureka/
-
   server:
     #关闭自我保护机制
-    enable-self-preservation : false
+    #enable-self-preservation : false
     #设置健康节点检测间隔（ms)
     eviction-interval-timer-in-ms : 10000
 
